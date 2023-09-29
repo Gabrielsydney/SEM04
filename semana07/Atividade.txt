@@ -1,0 +1,52 @@
+EXERCÍCIO 1
+Crie uma consulta SQL que busque todos os nomes dos produtos em ordem alfabética. A
+consulta deverá retornar apenas os nomes dos produtos.
+EXERCÍCIO 2
+Crie uma consulta SQL que busque todos os nomes dos produto e seus respectivos preços,
+ordenando-os pelo maior preço primeiro. A consulta deverá retornar apenas os nomes dos
+produtos e seus respectivos preços.
+EXERCÍCIO 3
+Crie uma consulta SQL que busque o produto de menor preço do sistema. Apenas este
+produto deve ser retornado.
+EXERCÍCIO 4
+Crie uma consulta SQL que traga a somatória total de vendas por dia, ordenado do maior
+para o menor total de receita.
+EXERCÍCIO 5
+Crie uma consulta SQL que traga apenas os dias (ano, mês e dia) que tenham receita total
+acima de 300 reais.
+
+---- RESPOSTAS ----
+
+banco de dados aula 11
+
+
+1) SELECT nome FROM Produto ORDER BY nome;
+
+2) SELECT nome,preco FROM Pedido ORDER BY preco DESC;
+
+3) SELECT * FROM Produto WHERE preco = (SELECT MIN(preco) FROM Produto);
+
+4) SELECT extract(year from data_pedido) AS year, extract(month from data_pedido) AS month, extract(day from data_pedido) AS day, sum(total) AS totl FROM Pedido GROUP BY year,month,day ORDER BY totl DESC;
+
+5) SELECT EXTRACT(day FROM data_pedido) AS day, EXTRACT(month FROM data_pedido) AS month, EXTRACT(year FROM data_pedido) as year, total FROM Pedido GROUP BY day,month,year,total having total > 300;
+
+
+banco de dados aula 12
+
+
+1) ALTER TABLE Produto ADD SKU VARCHAR(16);
+
+UPDATE Produto SET SKU = 'ABC12345' WHERE id = 1;
+UPDATE Produto SET SKU = 'XYZ67890' WHERE id = 2;
+UPDATE Produto SET SKU = 'PQR23456' WHERE id = 3;
+UPDATE Produto SET SKU = 'MNO78901' WHERE id = 4;
+UPDATE Produto SET SKU = 'DEF45678' WHERE id = 5;
+UPDATE Produto SET SKU = 'GHI56789' WHERE id = 6;
+UPDATE Produto SET SKU = 'JKL34567' WHERE id = 7;
+UPDATE Produto SET SKU = 'UVW89012' WHERE id = 8;
+UPDATE Produto SET SKU = 'STU12345' WHERE id = 9;
+UPDATE Produto SET SKU = 'NOP67890' WHERE id = 10;
+
+2) SELECT Produto.nome AS nome_produto, Categoria.nome AS nome_categoria FROM Produto CROSS JOIN Categoria WHERE Produto.categoria_id = Categoria.id;
+
+4) SELECT c.nome AS categoria_nome, AVG(p.preco) AS valor_medio FROM Categoria c JOIN Produto p ON c.id = p.categoria_id JOIN ItemPedido ip ON p.id = ip.produto_id GROUP BY c.nome;
