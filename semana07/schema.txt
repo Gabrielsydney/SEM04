@@ -1,0 +1,84 @@
+Criando Schemas:
+
+-- Criação da tabela de categorias
+CREATE TABLE Categoria (
+ id INT PRIMARY KEY,
+ nome VARCHAR(255) NOT NULL,
+ descricao TEXT
+);
+-- Criação da tabela de produtos
+CREATE TABLE Produto (
+ id INT PRIMARY KEY,
+ nome VARCHAR(255) NOT NULL,
+ descricao TEXT,
+ preco DECIMAL(10, 2) NOT NULL,
+ categoria_id INT,
+ FOREIGN KEY (categoria_id) REFERENCES Categoria(id)
+);
+-- Criação da tabela de pedidos
+CREATE TABLE Pedido (
+ id INT PRIMARY KEY,
+ data_pedido DATETIME NOT NULL,
+ cliente_nome VARCHAR(255) NOT NULL,
+ cliente_email VARCHAR(255) NOT NULL,
+ total DECIMAL(10, 2) NOT NULL
+);
+-- Tabela associativa para itens de pedido
+CREATE TABLE ItemPedido (
+ id INT PRIMARY KEY,
+ pedido_id INT,
+ produto_id INT,
+ quantidade INT NOT NULL,
+ preco_unitario DECIMAL(10, 2) NOT NULL,
+ subtotal DECIMAL(10, 2) NOT NULL,
+ FOREIGN KEY (pedido_id) REFERENCES Pedido(id),
+ FOREIGN KEY (produto_id) REFERENCES Produto(id)
+);
+
+INSERT INTO Categoria (id, nome, descricao)
+VALUES
+ (1, 'Eletrônicos', 'Produtos eletrônicos em geral'),
+ (2, 'Roupas', 'Roupas e acessórios'),
+ (3, 'Livros', 'Livros de diversos gêneros');
+-- Inserção de dados na tabela de produtos
+INSERT INTO Produto (id, nome, descricao, preco, categoria_id)
+VALUES
+ (1, 'Smartphone Modelo X', 'Um smartphone avançado com recursos incríveis',
+799.99, 1),
+ (2, 'Camiseta Casual', 'Uma camiseta confortável para uso diário', 29.99, 2),
+ (3, 'Livro de Ficção', 'Uma emocionante história de ficção científica', 14.99,
+3),
+ (4, 'Notebook Ultra', 'Um notebook potente para trabalho e entretenimento',
+1299.99, 1),
+ (5, 'Vestido Elegante', 'Um vestido elegante para ocasiões especiais', 79.99,
+2),
+ (6, 'Livro de Mistério', 'Um livro cheio de enigmas e reviravoltas', 12.99,
+3),
+ (7, 'Fones de Ouvido Sem Fio', 'Fones de ouvido de alta qualidade com
+tecnologia sem fio', 149.99, 1),
+ (8, 'Calça Jeans', 'Uma calça jeans moderna e confortável', 49.99, 2),
+ (9, 'Livro de Romance', 'Uma história de amor emocionante', 9.99, 3),
+ (10, 'Smartwatch Fitness', 'Um smartwatch que acompanha sua atividade física',
+89.99, 1);
+-- Inserção de dados na tabela de pedidos
+INSERT INTO Pedido (id, data_pedido, cliente_nome, cliente_email, total)
+VALUES
+ (1, '2023-08-28 10:00:00', 'João Silva', 'joao@example.com', 799.99),
+ (2, '2023-08-29 15:30:00', 'Maria Santos', 'maria@example.com', 307.95),
+ (3, '2023-08-30 14:45:00', 'Ana Oliveira', 'ana@example.com', 109.97),
+ (4, '2023-08-31 09:20:00', 'Pedro Rodrigues', 'pedro@example.com', 1029.94),
+ (5, '2023-08-31 16:10:00', 'Carla Santos', 'carla@example.com', 64.98),
+ (6, '2023-09-01 11:30:00', 'Lucas Ferreira', 'lucas@example.com', 179.96),
+ (7, '2023-09-02 15:15:00', 'Mariana Alves', 'mariana@example.com', 44.98),
+ (8, '2023-09-03 12:40:00', 'Rafael Souza', 'rafael@example.com', 339.96),
+ (9, '2023-09-04 14:20:00', 'Isabela Lima', 'isabela@example.com', 189.97),
+ (10, '2023-09-05 10:05:00', 'Gustavo Pereira', 'gustavo@example.com',
+624.95);
+-- Inserção de dados na tabela de itens de pedido
+INSERT INTO ItemPedido (id, pedido_id, produto_id, quantidade, preco_unitario,
+subtotal)
+VALUES
+ (1, 1, 1, 1, 799.99, 799.99),
+ (2, 2, 3, 2, 14.99, 29.98),
+ (3, 2, 5, 1, 79.99, 79.99),
+ (4, 2, 9, 3, 9.99, 29.97);
