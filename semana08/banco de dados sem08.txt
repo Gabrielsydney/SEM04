@@ -1,0 +1,12 @@
+semana 08
+banco de dados
+1) Crie as instruções SQL que liste todos os produtos que estão em uma categoria cujo o
+nome inicie com a letra R. Utilize subconsultas.
+
+SELECT id,nome,descricao,preco,categoria_id FROM Produto WHERE categoria IN(SELECT categoria FROM Produto WHERE categoria  LIKE 'R%');
+
+2) Crie uma consulta SQL traga uma lista com o nome dos produtos, seu respectivo preço e
+a quantidade de itens vendidos em ordem decrescente de quantidade de vendas. Apenas
+produtos vendidos devem aparecer na lista. Resultado esperado:
+
+SELECT Produto.nome,Produto.preco,ItemPedido.quantidade FROM Produto,ItemPedido WHERE Produto.id = ItemPedido.produto_id ORDER BY ItemPedido.quantidade DESC;
