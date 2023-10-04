@@ -1,0 +1,64 @@
+openapi: '3.0.2'
+info:
+  title: Atividade 14
+  version: '1.0'
+  description: Documentação da atividade 14
+  contact:
+    name: Antonio El Mas Pro
+servers:
+  - url: https://localhost:8080/api
+    description: servidor de teste
+paths:
+  /users:
+    get:
+      tags:
+        - users
+      operationId: getUsers
+      summary: 
+        Obtem todos os usuários
+      responses:
+        '200':
+          description: Lista de Usuários
+          content:
+            application/json:
+             schema:
+               type: object
+               properties: 
+                users:
+                 type: array
+                 items:
+components:
+  schemas:
+    Users:
+     type: object
+     properties:
+      name:
+       type: string
+       description: Nome do Usuário
+       example: Everton
+      email:
+       type: string
+       format: email
+       description: Email do Usuário
+       example: andradeeverton354@gmail.com
+      password:
+       type: string
+       description: Senha do Usuário
+       example: admin1234
+      id:
+       type: integer
+       description: Identificador do Usuário
+       example: 1
+    Erro:
+      type: object
+      properties:
+        msg:
+          type: string
+          description: Mensagem de erro
+          example: Usuário não encontrad
+                
+                
+                
+                
+                
+                
