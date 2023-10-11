@@ -1,0 +1,38 @@
+tcxxtBanco de dados -- Aula 14
+
+1) Crie uma VIEW chamada de Vendas em que deverá a receita gerada por cada produto e
+sua respectiva quantidade de vendas. A view deverá incluir inclusive os produtos que não
+possuem vendas, conforme demonstra o resultado esperado abaixo
+
+R- CREATE VIEW Vendas AS 
+  SELECT Produto.nome AS produto, Categoria.nome AS categoria,
+  COALESCE(ItemPedido.quantidade,0) AS vendas, COALESCE(ItemPedido.subtotal,0) AS receita
+  FROM Produto 
+  JOIN Categoria
+  ON Produto.categoria_id = Categoria.id
+  LEFT JOIN ItemPedido
+  ON Produto.id = ItemPedido.produto_id
+  ORDER BY ItemPedido.quantidade DESC;
+  
+SELECT * FROM Vendas;
+
+2) Dada a view criada na etapa anterior, escreva uma consulta SQL à View que retorne
+todos os produtos com receita acima de 100 reais.
+
+R - SELECT * FROM Vendas WHERE receita > 100;
+
+3) Dada a view criada na etapa anterior, escreva uma consulta SQL à View que retorne o
+total de receita agrupado por categoria de produto.
+
+R - SELECT categoria,sum(receita) AS 'receita total' FROM Vendas GROUP BY categoria;
+
+Banco de Dados -- Aula 15
+
+1) Qual o comando SQL utilizado para criar um novo usuário já informando a senha?
+
+R - CREATE USER admin IDENTIFIED BY 'admin';
+
+2) Crie o comando correto para dar acesso de consulta em todas as tabelas de todos os
+bancos ao usuário ‘joao’;
+
+R - GRANT ALL ON * TO joao;
