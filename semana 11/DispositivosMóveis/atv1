@@ -1,0 +1,45 @@
+import React from 'react'
+import { createRoot } from 'react-dom/client'
+const root = createRoot(document.getElementById('root'))
+
+class App extends React.Component {
+
+  constructor(){
+    super()
+    this.state = {
+      clicks: 0,
+      hora: new Date()
+    }
+    this.handleClick = this.handleClick.bind(this)
+  }
+
+  handleClick(){
+    this.setState({
+      hora: new Date()
+    })
+    this.setState(previousState => ({
+      clicks: previousState.clicks + 1
+    }))
+    const lista = document.querySelector('ul')
+    const element = document.createElement('li')
+    element.textContent = this.state.hora.toLocaleTimeString('en-US')
+    lista.appendChild(element)
+  }
+
+  render(){
+    return(
+      <div>
+        <h1>Registro de Horários de Clicks</h1>
+        <button onClick={this.handleClick}>Clique Aqui</button>
+        <p>Total de cliques: <span></span>{this.state.clicks}</p>
+        <ul>
+
+        </ul>
+      </div>
+    )
+  }
+}
+
+root.render(
+  <App />
+)
