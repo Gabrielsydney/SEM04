@@ -1,0 +1,65 @@
+import React from 'react'
+import { createRoot } from 'react-dom/client'
+const root = createRoot(document.getElementById('root'))
+
+class App extends React.Component {
+
+  constructor(){
+    super()
+    this.state = {
+      titulo: ' ',
+      status: 'No prazo'
+    }
+    this.handleClick = this.handleClick.bind(this)
+    this.titleChange = this.titleChange.bind(this)
+    this.handleChange = this.handleChange.bind(this)
+  }
+
+  handleClick(e){
+    e.preventDefault()
+    const lista = document.querySelector('ul')
+    const element = document.createElement('li')
+    element.textContent = ' Título da tarefa: ' + this.state.titulo + ' | Status da tarefa: ' + this.state.status
+    lista.appendChild(element)
+  }
+
+  handleChange(e){
+    const estado = e.target.value
+    this.setState({ status: estado})
+  }
+
+  titleChange(e){
+    this.setState({titulo: e.target.value})
+  }
+
+  render(){
+    return(
+      <div>
+        <h1>Lista de Tarefas</h1>
+        <form onSubmit={this.handleClick}>
+          <label>Título da tarefa: 
+            <input type='text' onChange={this.titleChange} value={this.state.titulo} />
+          </label>
+          <br />
+          <label>Status da tarefa: 
+            <select value={this.state.status} onChange={this.handleChange}>
+              <option value="No prazo">No Prazo</option>
+              <option value="Atrasada">Atrasada</option>
+              <option value="Próxima do prazo">Próxima do Prazo</option>
+            </select>
+          </label>
+          <br />
+          <br />
+          <input type='submit'/>
+        </form>
+        <ul>
+
+        </ul>
+      </div>
+    )
+  }
+}
+
+root.render(
+  <App />
+)
